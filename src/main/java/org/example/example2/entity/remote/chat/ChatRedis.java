@@ -1,9 +1,8 @@
-package com.virnect.data.domain.chat;
+package org.example.example2.entity.remote.chat;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
@@ -15,10 +14,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
+import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
-
-import com.virnect.data.dto.response.rpc.ClientMetaData;
 
 /**
  * Project        : RM-Service
@@ -61,16 +59,5 @@ public class ChatRedis {
 		this.message = message;
 		this.createdAt = createdAt;
 		this.expired = expired;
-	}
-
-	public static ChatRedis create(String sessionId, ClientMetaData clientMetaData, String chatMessage) {
-		return ChatRedis.builder()
-			.sessionId(sessionId)
-			.userId(clientMetaData.getClientData())
-			.nickname(clientMetaData.getNickname())
-			.message(chatMessage)
-			.createdAt(LocalDateTime.now())
-			.expired(24L)
-			.build();
 	}
 }

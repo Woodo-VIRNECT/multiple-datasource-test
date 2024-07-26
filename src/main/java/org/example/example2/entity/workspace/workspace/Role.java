@@ -1,4 +1,4 @@
-package com.virnect.workspace.domain.workspace;
+package org.example.example2.entity.workspace.workspace;
 
 import java.util.Arrays;
 import java.util.List;

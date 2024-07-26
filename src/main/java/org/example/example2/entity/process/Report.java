@@ -1,12 +1,25 @@
-package com.virnect.process.domain;
-
-import com.virnect.process.application.ProgressManager;
-import lombok.*;
-import org.hibernate.envers.Audited;
-
-import javax.persistence.*;
+package org.example.example2.entity.process;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Project: PF-ProcessManagement
@@ -18,7 +31,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Audited
 @Table(name = "report")
 @NoArgsConstructor
 public class Report extends BaseTimeEntity {
@@ -38,17 +50,7 @@ public class Report extends BaseTimeEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
     private List<Item> itemList = new ArrayList<>();
-/*
-    public void addItem(Item item) {
-        item.setReport(this);
-        itemList.add(item);
-    }
-*/
 
-    // 공정률 조회
-    public Integer getProgressRate() {
-        return ProgressManager.getReportProgressRate(this);
-    }
 
     @Builder
     public Report(Integer progressRate, Job job, List<Item> itemList) {

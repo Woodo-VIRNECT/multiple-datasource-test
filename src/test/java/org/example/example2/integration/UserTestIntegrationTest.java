@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import org.example.example2.entity.contents.User;
+import org.example.example2.entity.contents.UserTest;
 import org.example.example2.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @ActiveProfiles("local")
 @Transactional
-class UserIntegrationTest {
+class UserTestIntegrationTest {
 	@Autowired
 	private UserRepository userRepository;
 
@@ -35,16 +35,16 @@ class UserIntegrationTest {
 
 	@Test
 	void testSaveAndFindById() {
-		User user = new User("Test User");
+		UserTest userTest = new UserTest("Test User");
 
 		// Save user
-		User savedUser = userRepository.save(user);
+		UserTest savedUserTest = userRepository.save(userTest);
 
 		// Find user by ID
-		User foundUser = userRepository.findById(savedUser.getId()).orElse(null);
+		UserTest foundUserTest = userRepository.findById(savedUserTest.getId()).orElse(null);
 
-		assertEquals(savedUser.getId(), foundUser.getId());
-		assertEquals(savedUser.getUsername(), foundUser.getUsername());
+		assertEquals(savedUserTest.getId(), foundUserTest.getId());
+		assertEquals(savedUserTest.getUsername(), foundUserTest.getUsername());
 
 		// Verify the database connection
 		verifyDatabaseConnection();

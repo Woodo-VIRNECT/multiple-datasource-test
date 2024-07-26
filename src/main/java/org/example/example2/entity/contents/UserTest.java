@@ -10,11 +10,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "users")
+@Table(name = "users_test")
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class UserTest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -24,7 +24,7 @@ public class User {
 
 
 // 	 create method
-	public User(String username) {
+	public UserTest(String username) {
 		this.username = username;
 	}
 }

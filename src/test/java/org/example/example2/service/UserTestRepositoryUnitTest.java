@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
-import org.example.example2.entity.contents.User;
+import org.example.example2.entity.contents.UserTest;
 import org.example.example2.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class UserRepositoryUnitTest {
+class UserTestRepositoryUnitTest {
 
 	@Mock
 	private UserRepository userRepository;
@@ -25,19 +25,19 @@ class UserRepositoryUnitTest {
 
 	@Test
 	void testSaveAndFindById() {
-		User user = new User("Test User2");
+		UserTest userTest = new UserTest("Test User2");
 
-		when(userRepository.save(any(User.class))).thenReturn(user);
-		when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+		when(userRepository.save(any(UserTest.class))).thenReturn(userTest);
+		when(userRepository.findById(1L)).thenReturn(Optional.of(userTest));
 
 		// Save user
-		User savedUser = userService.saveUser(user);
+		UserTest savedUserTest = userService.saveUser(userTest);
 
 		// Find user by ID
-		User foundUser = userService.findUserById(1L);
+		UserTest foundUserTest = userService.findUserById(1L);
 
-		assertNotNull(foundUser, "User should not be null");
-		assertEquals(savedUser.getId(), foundUser.getId());
-		assertEquals(savedUser.getUsername(), foundUser.getUsername());
+		assertNotNull(foundUserTest, "User should not be null");
+		assertEquals(savedUserTest.getId(), foundUserTest.getId());
+		assertEquals(savedUserTest.getUsername(), foundUserTest.getUsername());
 	}
 }

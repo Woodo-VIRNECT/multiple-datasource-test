@@ -1,4 +1,4 @@
-package com.virnect.workspace.domain.rest;
+package org.example.example2.entity.workspace.rest;
 
 /**
  * Project: PF-Workspace

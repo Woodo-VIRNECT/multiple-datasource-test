@@ -1,4 +1,4 @@
-package com.virnect.workspace.global.constant;
+package org.example.example2.entity.workspace.workspace;
 
 /**
  * Project: PF-Workspace

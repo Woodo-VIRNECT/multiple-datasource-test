@@ -1,9 +1,7 @@
-package com.virnect.download.domain;
+package org.example.example2.entity.downloads;
 
 import lombok.Getter;
 
-import com.virnect.download.exception.DownloadException;
-import com.virnect.download.global.error.ErrorCode;
 
 /**
  * Project        : PF-Download
@@ -28,15 +26,6 @@ public enum ProductType {
 
 	ProductType(String description) {
 		this.description = description;
-	}
-
-	public static ProductType getProductTypeByDescription(String description) {
-		for (ProductType productType : ProductType.values()) {
-			if (productType.getDescription().equals(description)) {
-				return productType;
-			}
-		}
-		throw new DownloadException(ErrorCode.ERR_APP_UPLOAD_FAIL_PRODUCT_INFO_NOT_FOUND);
 	}
 
 }

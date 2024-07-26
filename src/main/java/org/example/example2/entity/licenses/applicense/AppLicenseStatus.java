@@ -1,4 +1,4 @@
-package com.virnect.license.domain.applicense;
+package org.example.example2.entity.licenses.applicense;
 
 public enum AppLicenseStatus {
 	USE, // 활성화

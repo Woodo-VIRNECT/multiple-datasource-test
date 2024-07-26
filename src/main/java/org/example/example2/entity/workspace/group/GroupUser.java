@@ -1,29 +1,30 @@
-package com.virnect.workspace.domain.group;
+package org.example.example2.entity.workspace.group;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.example.example2.entity.workspace.TimeEntity;
+import org.example.example2.entity.workspace.workspace.WorkspaceUser;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.virnect.workspace.domain.TimeEntity;
-import com.virnect.workspace.domain.workspace.WorkspaceUser;
 
 /**
  * Project: PF-Workspace
@@ -35,8 +36,8 @@ import com.virnect.workspace.domain.workspace.WorkspaceUser;
 @Entity
 @Getter
 @Setter
-@Table(name = "group_User")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "group_user")
 public class GroupUser extends TimeEntity {
 	@OneToMany(mappedBy = "groupUser")
 	List<GroupUserPermission> permissions = new ArrayList<>();

@@ -1,14 +1,11 @@
-package com.virnect.uaa.domain.user.domain;
+package org.example.example2.entity.account.user;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.envers.Audited;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +13,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Audited
 @Entity
-@Table(name = "permission")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "permission")
 public class Permission extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,37 +1,38 @@
-package com.virnect.workspace.domain.lms;
+package org.example.example2.entity.workspace.lms;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
+import java.time.LocalDateTime;
+import java.util.List;
 
+import org.example.example2.entity.workspace.TimeEntity;
+import org.example.example2.entity.workspace.lms.enums.CurriculumProgressStatus;
+import org.example.example2.entity.workspace.lms.enums.LearningStatus;
+import org.example.example2.entity.workspace.lms.enums.TargetType;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import com.virnect.workspace.application.content.dto.response.ContentDuplicateResponse;
-import com.virnect.workspace.domain.TimeEntity;
-import com.virnect.workspace.domain.lms.enums.TargetType;
-
-@Audited
 @Getter
 @Entity
 @Builder
 @AllArgsConstructor
-@Table(name = "curriculum_content", indexes = @Index(name = "idx_curriculum_id", columnList = "curriculum_id"))
+@Table(name = "curriculum_content", indexes = @Index(name = "idx_curriculum_content_curriculum_id", columnList = "curriculum_id"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CurriculumContent extends TimeEntity {
 	@Id
@@ -56,7 +57,7 @@ public class CurriculumContent extends TimeEntity {
 	@Column(name = "properties", nullable = false)
 	private String properties;
 
-	@Column(name = "size")
+	@Column(name = "content_size")
 	private Long size;
 
 	@Column(name = "thumbnail_path")
@@ -72,26 +73,4 @@ public class CurriculumContent extends TimeEntity {
 	@Column(name = "is_deleted", nullable = false)
 	private boolean isDeleted;
 
-	public static CurriculumContent create(ContentDuplicateResponse response, Curriculum curriculum) {
-		return CurriculumContent.builder()
-			.curriculum(curriculum)
-			.contentUUID(response.getUuid())
-			.name(response.getName())
-			.downloadPath(response.getDownloadPath())
-			.properties(response.getProperties())
-			.size(response.getSize())
-			.thumbnailPath(response.getProfilePath())
-			.targetPath(response.getTargetPath())
-			.targetType(response.getTargetType())
-			.isDeleted(false)
-			.build();
-	}
-
-	public boolean equalsBy(String contentUUID) {
-		return this.contentUUID.equals(contentUUID);
-	}
-
-	public void delete() {
-		isDeleted = true;
-	}
 }

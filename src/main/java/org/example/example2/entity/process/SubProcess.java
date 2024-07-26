@@ -1,14 +1,30 @@
-package com.virnect.process.domain;
+package org.example.example2.entity.process;
 
-import com.virnect.process.application.ProgressManager;
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.envers.Audited;
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Project: PF-ProcessManagement
@@ -21,7 +37,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Audited
 @Table(name = "sub_process")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SubProcess extends BaseTimeEntity {
@@ -74,15 +89,6 @@ public class SubProcess extends BaseTimeEntity {
         jobList.add(job);
     }
 
-    // 공정 상태 조회
-    public Conditions getConditions() {
-        return ProgressManager.getSubProcessConditions(this);
-    }
-
-    // 공정률 조회
-    public Integer getProgressRate() {
-        return ProgressManager.getSubProcessProgressRate(this);
-    }
 
     @Builder
     public SubProcess(Integer priority, String name, LocalDateTime startDate, LocalDateTime endDate, LocalDateTime reportedDate, YesOrNo isRecent, Integer progressRate, Conditions conditions, String workerUUID, Process process, List<Job> jobList) {

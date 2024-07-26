@@ -1,4 +1,4 @@
-package org.example.example2.entity;
+package org.example.example2.entity.contents;
 
 import java.util.ArrayList;
 import java.util.List;

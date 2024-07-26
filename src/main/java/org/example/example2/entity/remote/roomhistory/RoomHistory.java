@@ -1,38 +1,48 @@
-package com.virnect.data.domain.roomhistory;
+package org.example.example2.entity.remote.roomhistory;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import org.example.example2.entity.remote.BaseTimeEntity;
+import org.example.example2.entity.remote.member.MemberHistory;
+import org.example.example2.entity.remote.room.Room;
+import org.example.example2.entity.remote.session.SessionPropertyHistory;
+import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.virnect.data.domain.BaseTimeEntity;
-import com.virnect.data.domain.member.MemberHistory;
-import com.virnect.data.domain.room.Room;
-import com.virnect.data.domain.session.SessionPropertyHistory;
-
 @Entity
 @Getter
 @Setter
 @Audited
+@AuditTable(value = "rooms_history_aud")
 @Table(name = "rooms_history")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RoomHistory extends BaseTimeEntity {

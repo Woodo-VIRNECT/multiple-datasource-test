@@ -1,4 +1,4 @@
-package com.virnect.data.domain.room;
+package org.example.example2.entity.remote.room;
 
 public enum RoomStatus {
 	ACTIVE,

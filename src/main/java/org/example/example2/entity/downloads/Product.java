@@ -1,13 +1,12 @@
-package com.virnect.download.domain;
+package org.example.example2.entity.downloads;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Table;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +26,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(
 	name = "product",
-	indexes = @Index(name = "uidx_product_name", columnList = "name", unique = true)
+	indexes = @Index(name = "idx_product_name", columnList = "name", unique = true)
 )
 public class Product extends TimeEntity {
 	@Id

@@ -1,4 +1,4 @@
-package com.virnect.workspace.domain.group;
+package org.example.example2.entity.workspace.group;
 
 /**
  * Project: PF-Workspace

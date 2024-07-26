@@ -1,11 +1,9 @@
-package com.virnect.message.domain;
+package org.example.example2.entity.messages;
 
+import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.redis.core.RedisHash;
-
-import javax.persistence.Id;
 
 /**
  * Project: PF-Message

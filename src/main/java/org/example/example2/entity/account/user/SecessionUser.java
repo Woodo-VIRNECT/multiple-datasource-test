@@ -1,16 +1,15 @@
-package com.virnect.uaa.domain.user.domain;
+package org.example.example2.entity.account.user;
 
 import java.time.LocalDateTime;
 import java.time.Period;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +18,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "secession_user")
 @NoArgsConstructor
+@Table(name = "secession_user")
 public class SecessionUser extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,21 +75,21 @@ public class SecessionUser extends BaseTimeEntity {
 		this.secessionDate = secessionDate;
 	}
 
-	public static SecessionUser of(User user, String reason) {
+	public static SecessionUser of(AccountUser accountUser, String reason) {
 		LocalDateTime secessionDate = LocalDateTime.now();
-		long serviceDays = Period.between(user.getCreatedDate().toLocalDate(), secessionDate.toLocalDate()).getDays();
+		long serviceDays = Period.between(accountUser.getCreatedDate().toLocalDate(), secessionDate.toLocalDate()).getDays();
 
 		return new SecessionUser(
-			user.getUuid(),
-			user.getEmail(),
+			accountUser.getUuid(),
+			accountUser.getEmail(),
 			reason,
-			user.getNickname(),
-			user.getCreatedDate(),
-			user.getJoinInfo(),
-			user.getServiceInfo(),
+			accountUser.getNickname(),
+			accountUser.getCreatedDate(),
+			accountUser.getJoinInfo(),
+			accountUser.getServiceInfo(),
 			serviceDays,
 			secessionDate,
-			user.getId()
+			accountUser.getId()
 		);
 	}
 

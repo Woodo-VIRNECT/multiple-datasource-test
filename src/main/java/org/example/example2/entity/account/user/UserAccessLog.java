@@ -1,23 +1,20 @@
-package com.virnect.uaa.domain.user.domain;
+package org.example.example2.entity.account.user;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.virnect.uaa.domain.auth.account.dto.ClientGeoIPInfo;
 
 /**
  * @author jeonghyeon.chang (johnmark)
@@ -40,7 +37,7 @@ public class UserAccessLog extends BaseTimeEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private AccountUser accountUser;
 
 	@Column(name = "device_details")
 	private String deviceDetails;
@@ -65,10 +62,10 @@ public class UserAccessLog extends BaseTimeEntity {
 
 	@Builder
 	public UserAccessLog(
-		User user, String deviceDetails, String ip, String location, String userAgent, String country,
+		AccountUser accountUser, String deviceDetails, String ip, String location, String userAgent, String country,
 		String countryCode, LocalDateTime lastLoggedIn
 	) {
-		this.user = user;
+		this.accountUser = accountUser;
 		this.ip = ip;
 		this.location = location;
 		this.deviceDetails = deviceDetails;
@@ -78,32 +75,12 @@ public class UserAccessLog extends BaseTimeEntity {
 		this.countryCode = countryCode;
 	}
 
-	public static UserAccessLog ofUserAndClientGeoIPInfo(User user, ClientGeoIPInfo clientGeoIPInfo) {
-		UserAccessLog userAccessLog = new UserAccessLog();
-		userAccessLog.user = user;
-		userAccessLog.ip = clientGeoIPInfo.getIp();
-		userAccessLog.location = clientGeoIPInfo.getLocation();
-		userAccessLog.deviceDetails = clientGeoIPInfo.getDeviceDetails();
-		userAccessLog.userAgent = clientGeoIPInfo.getUserAgent();
-		userAccessLog.lastLoggedIn = LocalDateTime.now();
-		userAccessLog.country = clientGeoIPInfo.getCountry();
-		userAccessLog.countryCode = clientGeoIPInfo.getCountryCode();
-		return userAccessLog;
-	}
-
-	public String getDevice() {
-		String deviceMajorInfo = deviceDetails.split(" ")[0];
-		if (deviceMajorInfo.equalsIgnoreCase("okhttp")) {
-			return "Mobile";
-		}
-		return deviceMajorInfo;
-	}
 
 	@Override
 	public String toString() {
 		return "UserAccessLog{" +
 			"id=" + id +
-			", user=" + user +
+			", user=" + accountUser +
 			", deviceDetails='" + deviceDetails + '\'' +
 			", userAgent='" + userAgent + '\'' +
 			", location='" + location + '\'' +

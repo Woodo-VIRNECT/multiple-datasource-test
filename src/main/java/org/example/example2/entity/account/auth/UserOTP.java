@@ -1,11 +1,15 @@
-package com.virnect.uaa.domain.auth.account.domain;
+package org.example.example2.entity.account.auth;
 
 import java.util.List;
 
-import javax.persistence.*;
-
-import org.hibernate.envers.Audited;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +25,6 @@ import lombok.Setter;
 		)
 	})
 @NoArgsConstructor
-@Audited
 public class UserOTP {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

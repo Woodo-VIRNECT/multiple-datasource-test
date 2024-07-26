@@ -1,30 +1,34 @@
-package com.virnect.workspace.domain.workspace;
+package org.example.example2.entity.workspace.workspace;
 
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.example.example2.entity.workspace.TimeEntity;
+import org.example.example2.entity.workspace.group.GroupUser;
+import org.example.example2.entity.workspace.lms.enums.CurriculumProgressStatus;
+import org.example.example2.entity.workspace.lms.enums.LearningStatus;
 
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.virnect.workspace.domain.TimeEntity;
-import com.virnect.workspace.domain.group.GroupUser;
 
 /**
  * Project: PF-Workspace
@@ -38,7 +42,6 @@ import com.virnect.workspace.domain.group.GroupUser;
 @Setter
 @Table(name = "workspace_user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Audited
 public class WorkspaceUser extends TimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +55,6 @@ public class WorkspaceUser extends TimeEntity {
 	@JoinColumn(name = "workspace_id")
 	private Workspace workspace;
 
-	@NotAudited
 	@OneToMany(mappedBy = "workspaceUser")
 	private List<GroupUser> groupUserList = new ArrayList<>();
 

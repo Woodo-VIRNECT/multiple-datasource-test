@@ -1,37 +1,28 @@
-package com.virnect.license.domain.licenseplan;
+package org.example.example2.entity.licenses.licenseplan;
 
-import static com.virnect.license.domain.licenseplan.PlanStatus.*;
 import static java.time.LocalDate.*;
+import static org.example.example2.entity.licenses.licenseplan.PlanStatus.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import org.hibernate.envers.Audited;
+import org.example.example2.entity.licenses.BaseTimeEntity;
 import org.springframework.data.annotation.LastModifiedBy;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.virnect.license.domain.BaseTimeEntity;
-import com.virnect.license.domain.product.LicenseProduct;
 
 /**
  * @author jeonghyeon.chang (johnmark)
@@ -43,7 +34,6 @@ import com.virnect.license.domain.product.LicenseProduct;
 @Entity
 @Getter
 @Setter
-@Audited
 @Table(name = "license_plan", uniqueConstraints = {
 	@UniqueConstraint(columnNames = {"workspace_id", "status", "created_at"}),
 })
@@ -104,9 +94,6 @@ public class LicensePlan extends BaseTimeEntity {
 	@Column(name = "terminate_date")
 	private LocalDateTime terminateDate;
 
-	@OneToMany(mappedBy = "licensePlan", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<LicenseProduct> licenseProductList = new HashSet<>();
-
 	@Builder
 	public LicensePlan(
 		String userId, String workspaceId, LocalDateTime startDate, LocalDateTime endDate, PlanStatus planStatus,
@@ -127,11 +114,6 @@ public class LicensePlan extends BaseTimeEntity {
 		this.countryCode = countryCode;
 		this.isEventPlan = isEventPlan;
 		this.isTermPlan = isTermPlan;
-	}
-
-	public void addLicenseProduct(LicenseProduct licenseProduct) {
-		licenseProductList.add(licenseProduct);
-		licenseProduct.setLicensePlan(this);
 	}
 
 	@Override

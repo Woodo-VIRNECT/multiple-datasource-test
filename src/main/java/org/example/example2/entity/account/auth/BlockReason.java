@@ -1,4 +1,4 @@
-package com.virnect.uaa.domain.auth.account.domain;
+package org.example.example2.entity.account.auth;
 
 /**
  * @author jeonghyeon.chang (johnmark)

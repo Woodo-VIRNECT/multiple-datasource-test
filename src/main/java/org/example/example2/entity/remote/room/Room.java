@@ -1,31 +1,38 @@
-package com.virnect.data.domain.room;
+package org.example.example2.entity.remote.room;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import org.example.example2.entity.remote.BaseTimeEntity;
+import org.example.example2.entity.remote.member.Member;
+import org.example.example2.entity.remote.session.SessionProperty;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.virnect.data.domain.BaseTimeEntity;
-import com.virnect.data.domain.member.Member;
-import com.virnect.data.domain.session.SessionProperty;
-import com.virnect.data.dto.constraint.LicenseItem;
-import com.virnect.data.dto.request.reservation.ReservationCreateRequest;
 
 /**
  * Room Domain Model Class
@@ -117,53 +124,5 @@ public class Room extends BaseTimeEntity {
 		this.profile = "default";
 		this.roomStatus = RoomStatus.UNACTIVE;
 		this.activeDate = LocalDateTime.now();
-	}
-
-	public static Room createReservedRoom(
-		String customSessionId, ReservationCreateRequest createRequest, SessionProperty reservedSessionProperty
-	) {
-		Room reservedRoom = Room.builder()
-			.sessionId(customSessionId)
-			.workspaceId(createRequest.getWorkspaceId())
-			.leaderId(createRequest.getLeaderId())
-			.title(createRequest.getTitle())
-			.description(createRequest.getDescription())
-			.licenseName(LicenseItem.ITEM_PRODUCT.name())
-			.maxUserCount(LicenseItem.ITEM_PRODUCT.getUserCapacity())
-			.videoRestrictedMode(createRequest.isVideoRestrictedMode())
-			.build();
-		reservedRoom.updateSessionProperty(reservedSessionProperty);
-		return reservedRoom;
-	}
-
-	public void updateSessionProperty(SessionProperty reservedSessionProperty) {
-		this.sessionProperty = reservedSessionProperty;
-		sessionProperty.updateRoom(this);
-	}
-
-	public void addMember(Member member) {
-		this.members.add(member);
-	}
-
-	@Override
-	public String toString() {
-		return "Room{" +
-			"id=" + id +
-			", sessionId='" + sessionId + '\'' +
-			", title='" + title + '\'' +
-			", description='" + description + '\'' +
-			", leaderId='" + leaderId + '\'' +
-			", workspaceId='" + workspaceId + '\'' +
-			", profile='" + profile + '\'' +
-			", members='" + members.toString() + '\'' +
-			'}';
-	}
-
-	public void updateTitle(String title) {
-		this.title = title;
-	}
-
-	public void updateDescription(String description) {
-		this.description = description;
 	}
 }

@@ -1,41 +1,35 @@
-package com.virnect.workspace.domain.lms;
+package org.example.example2.entity.workspace.lms;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.example.example2.entity.workspace.TimeEntity;
+import org.example.example2.entity.workspace.lms.enums.QuizType;
 
-import org.hibernate.envers.Audited;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import com.virnect.workspace.domain.TimeEntity;
-import com.virnect.workspace.domain.lms.enums.QuizType;
-import com.virnect.workspace.dto.request.lms.QuizCreateRequest;
-import com.virnect.workspace.dto.request.lms.QuizUpdateRequest;
-
 @Getter
 @Builder
-@Audited
 @Entity
-@Table(name = "quiz", indexes = @Index(name = "idx_curriculum_id", columnList = "curriculum_id"))
+@Table(name = "quiz", indexes = @Index(name = "idx_quiz_curriculum_id", columnList = "curriculum_id"))
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Quiz extends TimeEntity {
@@ -71,65 +65,4 @@ public class Quiz extends TimeEntity {
 	@Builder.Default
 	private List<QuizOption> quizOptions = new ArrayList<>();
 
-	public static Quiz create(Curriculum curriculum, QuizCreateRequest request, long sequence) {
-		return Quiz.builder()
-			.curriculum(curriculum)
-			.title(request.getTitle())
-			.description(request.getDescription())
-			.point(request.getPoint())
-			.quizType(request.getQuizType())
-			.sequence(sequence)
-			.isDeleted(false)
-			.build();
-	}
-
-	public static Quiz duplicate(Quiz quiz, Curriculum duplicatedCurriculum) {
-		Quiz duplicatedQuiz = Quiz.builder()
-			.curriculum(duplicatedCurriculum)
-			.title(quiz.title)
-			.description(quiz.description)
-			.point(quiz.point)
-			.quizType(quiz.quizType)
-			.sequence(quiz.sequence)
-			.isDeleted(false)
-			.build();
-
-		for (QuizOption quizOption : quiz.getQuizOptions()) {
-			QuizOption duplicateQuizOption = QuizOption.duplicate(duplicatedQuiz, quizOption);
-			duplicatedQuiz.addQuizOption(duplicateQuizOption);
-		}
-
-		return duplicatedQuiz;
-	}
-
-	public void addQuizOption(QuizOption quizOption) {
-		this.quizOptions.add(quizOption);
-	}
-
-	public void addQuizOptions(List<QuizOption> quizOptions) {
-		this.quizOptions.addAll(quizOptions);
-	}
-
-	public void delete() {
-		this.isDeleted = true;
-		this.quizOptions.forEach(QuizOption::delete);
-	}
-
-	public void update(QuizUpdateRequest quizUpdateRequest) {
-		this.title = quizUpdateRequest.getTitle();
-		this.description = quizUpdateRequest.getDescription();
-		this.point = quizUpdateRequest.getPoint();
-	}
-
-	public void updateSequence(long sequence) {
-		this.sequence = sequence;
-	}
-
-	public boolean equalsById(Long quizId) {
-		return this.id.equals(quizId);
-	}
-
-	public boolean equalsBySequence(Long sequence) {
-		return this.sequence.equals(sequence);
-	}
 }

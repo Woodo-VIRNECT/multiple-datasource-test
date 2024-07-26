@@ -1,26 +1,24 @@
-package com.virnect.data.domain.session;
+package org.example.example2.entity.remote.session;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import org.example.example2.entity.remote.BaseTimeEntity;
+import org.example.example2.entity.remote.room.Room;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.virnect.data.domain.BaseTimeEntity;
-import com.virnect.data.domain.room.Room;
-import com.virnect.data.dto.request.reservation.ReservationCreateRequest;
 
 @Entity
 @Getter
@@ -87,21 +85,6 @@ public class SessionProperty extends BaseTimeEntity {
 		this.sessionType = sessionType;
 		this.publisherId = publisherId;
 		this.room = room;
-	}
-
-	public static SessionProperty createReservedSessionProperty(ReservationCreateRequest createRequest) {
-		//mediaMode, recordingMode, DefaultOutputMode, defaultRecordingLayout, recording, keepalive 는 전부 오픈비두에서 사용하는 값들로 현재 리모트에서는
-		// 모두 고정된 값으로 사용하고 있음.
-		return SessionProperty.builder()
-			.mediaMode("ROUTED")
-			.recordingMode("MANUAL")
-			.defaultOutputMode("COMPOSED")
-			.defaultRecordingLayout("BEST_FIT")
-			.recording(true)
-			.keepalive(false)
-			.sessionType(SessionType.PRIVATE)
-			.publisherId(createRequest.getLeaderId())
-			.build();
 	}
 
 	@Override

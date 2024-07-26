@@ -1,4 +1,4 @@
-package com.virnect.process.domain;
+package org.example.example2.entity.process;
 
 /**
  * @author hangkee.min (henry)

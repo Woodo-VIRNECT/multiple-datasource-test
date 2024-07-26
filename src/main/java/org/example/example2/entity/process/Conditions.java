@@ -1,6 +1,4 @@
-package com.virnect.process.domain;
-
-import lombok.ToString;
+package org.example.example2.entity.process;
 
 /**
  * Project: PF-ProcessManagement

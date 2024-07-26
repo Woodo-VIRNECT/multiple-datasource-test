@@ -1,19 +1,20 @@
-package com.virnect.workspace.domain.group;
+package org.example.example2.entity.workspace.group;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
 
+import org.example.example2.entity.workspace.TimeEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.virnect.workspace.domain.TimeEntity;
 
 /**
  * Project: PF-Workspace
@@ -25,8 +26,8 @@ import com.virnect.workspace.domain.TimeEntity;
 @Entity
 @Getter
 @Setter
-@Table(name = "group_role")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "group_role")
 public class GroupRole extends TimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,4 +1,4 @@
-package com.virnect.data.domain.member;
+package org.example.example2.entity.remote.member;
 
 public enum MemberStatus {
 	//ONLINE,

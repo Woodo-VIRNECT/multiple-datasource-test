@@ -1,21 +1,17 @@
-package com.virnect.download.domain;
+package org.example.example2.entity.downloads;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +30,7 @@ import lombok.Setter;
 @Table(
 	name = "app",
 	indexes = {
-		@Index(name = "uidx_uuid", columnList = "uuid", unique = true),
+		@Index(name = "idx_app_uuid", columnList = "uuid", unique = true),
 		@Index(name = "idx_app_version_code", columnList = "version_code"),
 		@Index(name = "idx_os_id", columnList = "os_id"),
 		@Index(name = "idx_device_id", columnList = "device_id"),
@@ -42,7 +38,6 @@ import lombok.Setter;
 	}
 )
 @NoArgsConstructor
-@Audited
 public class App extends TimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,25 +76,22 @@ public class App extends TimeEntity {
 	@Enumerated(EnumType.STRING)
 	private AppStatus appStatus;
 
-	@Column(name = "app_download_count", columnDefinition = "BIGINT default 0", nullable = false)
-	private Long appDownloadCount;
+	@Column(name = "app_download_count", nullable = false)
+	private Long appDownloadCount = 0L;
 
-	@Column(name = "guide_download_count", columnDefinition = "BIGINT default 0", nullable = false)
-	private Long guideDownloadCount;
+	@Column(name = "guide_download_count", nullable = false)
+	private Long guideDownloadCount = 0L;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "device_id", nullable = false)
-	@NotAudited
 	private Device device;
 
 	@JoinColumn(name = "product_id")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@NotAudited
 	private Product product;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "os_id", nullable = false)
-	@NotAudited
 	private OS os;
 
 	@Builder(builderClassName = "AppBuilder", builderMethodName = "appBuilder")

@@ -1,23 +1,28 @@
-package com.virnect.workspace.domain.workspace;
+package org.example.example2.entity.workspace.workspace;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.List;
 
-import org.hibernate.envers.Audited;
+import org.example.example2.entity.workspace.TimeEntity;
+import org.example.example2.entity.workspace.lms.enums.CurriculumProgressStatus;
+import org.example.example2.entity.workspace.lms.enums.LearningStatus;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.virnect.workspace.domain.TimeEntity;
 
 /**
  * Project: PF-Workspace
@@ -30,7 +35,6 @@ import com.virnect.workspace.domain.TimeEntity;
 @Getter
 @Setter
 @Table(name = "workspace_role")
-@Audited
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WorkspaceRole extends TimeEntity {
 	@Id

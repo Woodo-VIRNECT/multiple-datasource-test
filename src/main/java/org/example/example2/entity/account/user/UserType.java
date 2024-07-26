@@ -1,4 +1,4 @@
-package com.virnect.uaa.domain.user.domain;
+package org.example.example2.entity.account.user;
 
 /**
  * Project: user

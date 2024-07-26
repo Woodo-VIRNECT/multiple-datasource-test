@@ -1,31 +1,32 @@
-package com.virnect.data.domain.file;
+package org.example.example2.entity.remote.file;
+
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import org.example.example2.entity.remote.BaseTimeEntity;
+import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.virnect.data.domain.BaseTimeEntity;
-
 @Entity
 @Getter
 @Setter
-@Audited
 @Table(name = "files")
+@Audited
+@AuditTable(value = "files_aud")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class File extends BaseTimeEntity {
 	@Id
@@ -54,7 +55,7 @@ public class File extends BaseTimeEntity {
     /*@Column(name = "path", nullable = false, unique = true)
     private String path;*/
 
-	@Column(name = "size", nullable = false)
+	@Column(name = "file_size", nullable = false)
 	private Long size;
 
 	@Column(name = "expiration_at")

@@ -1,32 +1,33 @@
-package com.virnect.workspace.domain.lms;
+package org.example.example2.entity.workspace.lms;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.List;
 
-import org.hibernate.envers.Audited;
+import org.example.example2.entity.workspace.TimeEntity;
+import org.example.example2.entity.workspace.lms.enums.CurriculumProgressStatus;
+import org.example.example2.entity.workspace.lms.enums.LearningStatus;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import com.virnect.workspace.domain.TimeEntity;
-import com.virnect.workspace.dto.request.lms.QuizOptionUpdateRequest;
-
 @Getter
 @Builder
-@Audited
 @Entity
-@Table(name = "quiz_option", indexes = @Index(name = "idx_quiz_id", columnList = "quiz_id"))
+@Table(name = "quiz_option", indexes = @Index(name = "idx_quiz_option_quiz_id", columnList = "quiz_id"))
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class QuizOption extends TimeEntity {
@@ -55,23 +56,5 @@ public class QuizOption extends TimeEntity {
 			.isAnswer(isAnswer)
 			.isDeleted(false)
 			.build();
-	}
-
-	public static QuizOption duplicate(Quiz duplicatedQuiz, QuizOption quizOption) {
-		return QuizOption.builder()
-			.quiz(duplicatedQuiz)
-			.content(quizOption.getContent())
-			.isAnswer(quizOption.isAnswer())
-			.isDeleted(false)
-			.build();
-	}
-
-	public void delete() {
-		this.isDeleted = true;
-	}
-
-	public void update(QuizOptionUpdateRequest updateQuizOption) {
-		this.content = updateQuizOption.getContent();
-		this.isAnswer = updateQuizOption.getIsAnswer();
 	}
 }

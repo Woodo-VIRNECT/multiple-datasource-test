@@ -1,12 +1,52 @@
-package org.example.example2.config;/**
- * Project        : example2
- * DATE           : 7/15/24
- * AUTHOR         : dnejdzlr2 (Woodo Lee)
- * EMAIL          : dnejdzlr2@virnect.com
- * DESCRIPTION    :
- * ===========================================================
- * DATE            AUTHOR             NOTE
- * -----------------------------------------------------------
- * 7/15/24      dnejdzlr2          최초 생성
- */public class OracleDataSourceConfig {
+
+package org.example.example2.config;
+
+import static org.example.example2.config.AbstractDataSourceConfig.*;
+
+import java.util.Objects;
+
+import javax.sql.DataSource;
+
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import com.zaxxer.hikari.HikariDataSource;
+
+@Configuration
+@ConditionalOnProperty(name = "spring.datasource.db-type", havingValue = ORACLE_PERSISTENCE_UNIT)
+public class OracleDataSourceConfig extends AbstractDataSourceConfig {
+
+	@Override
+	@Bean(name = DATA_SOURCE_BEAN_NAME)
+	@ConfigurationProperties(prefix = "spring.datasource.oracle")
+	public HikariDataSource dataSource() {
+		return DataSourceBuilder.create().type(HikariDataSource.class).build();
+	}
+
+	@Override
+	@Bean(name = ENTITY_MANAGER_FACTORY_BEAN_NAME)
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+		EntityManagerFactoryBuilder builder, HikariDataSource dataSource
+	) {
+		dataSource.setPoolName("Oracle-Hikari-Pool");
+		return builder.dataSource(dataSource)
+			.packages(ENTITY_PACKAGE)
+			.persistenceUnit(ORACLE_PERSISTENCE_UNIT)
+			.build();
+	}
+
+	@Override
+	@Bean(name = TRANSACTION_MANAGER_BEAN_NAME)
+	public PlatformTransactionManager transactionManager(
+		LocalContainerEntityManagerFactoryBean entityManagerFactory
+	) {
+		return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactory.getObject()));
+	}
 }

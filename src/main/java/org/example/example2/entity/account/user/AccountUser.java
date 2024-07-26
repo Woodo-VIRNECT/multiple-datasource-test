@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,13 +15,10 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,14 +32,15 @@ import lombok.Setter;
  * DESCRIPTION:
  */
 @Entity
+@Table(name = "account_user")
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id", "uuid"}, callSuper = false)
 @NoArgsConstructor
-public class User extends BaseTimeEntity {
+public class AccountUser extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id", nullable = false)
+	@Column(name = "account_user_id", nullable = false)
 	private Long id;
 
 	@Column(name = "uuid", nullable = false, unique = true)
@@ -120,10 +116,10 @@ public class User extends BaseTimeEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "master_user")
-	private User master;
+	private AccountUser master;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "master")
-	private List<User> seatUsers;
+	private List<AccountUser> seatAccountUsers;
 
 	@Column(name = "account_non_expired")
 	private boolean accountNonExpired = true;
@@ -140,7 +136,7 @@ public class User extends BaseTimeEntity {
 	@Column(name = "account_password_initialized")
 	private boolean accountPasswordInitialized;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "accountUser", fetch = FetchType.LAZY)
 	private List<UserPermission> userPermissionList = new ArrayList<>();
 
 	@Override

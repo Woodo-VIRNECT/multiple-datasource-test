@@ -1,4 +1,4 @@
-package com.virnect.license.domain.licenseplan;
+package org.example.example2.entity.licenses.licenseplan;
 
 /**
  * @author jeonghyeon.chang (johnmark)

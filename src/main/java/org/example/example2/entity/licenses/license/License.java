@@ -1,28 +1,21 @@
-package com.virnect.license.domain.license;
+package org.example.example2.entity.licenses.license;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import org.example.example2.entity.licenses.BaseTimeEntity;
 import org.hibernate.annotations.Where;
-import org.hibernate.envers.Audited;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.virnect.license.domain.BaseTimeEntity;
-import com.virnect.license.domain.product.LicenseProduct;
 
 /**
  * @author jeonghyeon.chang (johnmark)
@@ -34,7 +27,6 @@ import com.virnect.license.domain.product.LicenseProduct;
 @Entity
 @Getter
 @Setter
-@Audited
 @Where(clause = "license_status !='TERMINATE'")
 @Table(name = "license")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -54,15 +46,10 @@ public class License extends BaseTimeEntity {
 	@Column(name = "license_status")
 	private LicenseStatus status = LicenseStatus.UNUSE;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "license_product_id")
-	private LicenseProduct licenseProduct;
-
 	@Builder
-	public License(String serialKey, LicenseStatus status, LicenseProduct licenseProduct) {
+	public License(String serialKey, LicenseStatus status) {
 		this.serialKey = serialKey;
 		this.status = status;
-		this.licenseProduct = licenseProduct;
 	}
 
 	@Override

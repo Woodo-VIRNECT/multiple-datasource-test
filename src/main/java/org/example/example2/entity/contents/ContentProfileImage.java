@@ -1,4 +1,4 @@
-package org.example.example2.entity;
+package org.example.example2.entity.contents;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;

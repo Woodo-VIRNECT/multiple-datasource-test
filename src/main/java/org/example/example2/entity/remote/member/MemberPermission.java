@@ -1,29 +1,29 @@
-package com.virnect.data.domain.member;
+package org.example.example2.entity.remote.member;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import org.example.example2.entity.remote.RemotePermission;
+import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.virnect.data.domain.Permission;
-
 @Getter
 @Setter
 @Audited
 @Entity
+@AuditTable(value = "member_permission_aud")
 @Table(name = "member_permission")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberPermission {
@@ -38,15 +38,15 @@ public class MemberPermission {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "permission_id")
-	private Permission permission;
+	private RemotePermission remotePermission;
 
 	@Builder
 	public MemberPermission(
 		Member member,
-		Permission permission
+		RemotePermission remotePermission
 	) {
 		//this.member = member;
-		this.permission = permission;
+		this.remotePermission = remotePermission;
 	}
 
 }

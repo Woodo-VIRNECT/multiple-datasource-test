@@ -1,7 +1,6 @@
-package com.virnect.message.domain;
+package org.example.example2.entity.messages;
 
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Project: PF-Message

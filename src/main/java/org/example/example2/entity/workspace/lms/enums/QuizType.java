@@ -1,4 +1,4 @@
-package com.virnect.workspace.domain.lms.enums;
+package org.example.example2.entity.workspace.lms.enums;
 
 public enum QuizType {
 	OX,

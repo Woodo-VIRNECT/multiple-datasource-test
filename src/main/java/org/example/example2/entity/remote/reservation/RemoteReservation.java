@@ -1,4 +1,4 @@
-package com.virnect.data.domain.reservation;
+package org.example.example2.entity.remote.reservation;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -7,31 +7,29 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
+import org.example.example2.entity.remote.BaseTimeEntity;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import com.virnect.data.domain.BaseTimeEntity;
-import com.virnect.data.dto.request.reservation.ReservationCreateRequest;
+import lombok.Setter;
 
 /**
  * Project        : RM-Service
@@ -93,32 +91,6 @@ public class RemoteReservation extends BaseTimeEntity {
 	@Column(name = "is_notified", nullable = false)
 	private boolean isNotified;
 
-	public static RemoteReservation of(ReservationCreateRequest createRequest, String sessionId, List<ReservedMember> members) {
-		ZoneId zoneId = createRequest.getTimezone();
-		OffsetDateTime startOffsetDateTime = createStartTime(createRequest, zoneId);
-		Integer durationInMinutes = createRequest.getDurationInMinutes();
-
-		RemoteReservation remoteReservation = RemoteReservation.builder()
-			.zoneId(zoneId)
-			.durationInMinutes(durationInMinutes)
-			.startTime(startOffsetDateTime)
-			.endTime(startOffsetDateTime.plusMinutes(durationInMinutes))
-			.workspaceUuid(createRequest.getWorkspaceId())
-			.leaderUuid(createRequest.getLeaderId())
-			.reservationStatus(ReservationStatus.WAITING)
-			.sessionId(sessionId)
-			.isNotified(false)
-			.build();
-
-		members.forEach(remoteReservation::addMember);
-		return remoteReservation;
-	}
-
-	private static OffsetDateTime createStartTime(ReservationCreateRequest createRequest, ZoneId zoneId) {
-		LocalDateTime startDateTime = createRequest.getStartDateTime();
-		ZonedDateTime zonedDateTime = ZonedDateTime.of(startDateTime, zoneId);
-		return zonedDateTime.withZoneSameInstant(ZoneId.systemDefault()).toOffsetDateTime();
-	}
 
 	public void addMember(ReservedMember reservedMember) {
 		this.reservedMembers.add(reservedMember);

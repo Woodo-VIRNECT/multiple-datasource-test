@@ -1,4 +1,4 @@
-package com.virnect.data.domain.session;
+package org.example.example2.entity.remote.session;
 
 import java.util.HashMap;
 import java.util.Map;

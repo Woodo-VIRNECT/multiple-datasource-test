@@ -1,9 +1,6 @@
-package com.virnect.download.domain;
+package org.example.example2.entity.downloads;
 
 import lombok.Getter;
-
-import com.virnect.download.exception.DownloadException;
-import com.virnect.download.global.error.ErrorCode;
 
 /**
  * Project        : PF-Download
@@ -32,12 +29,4 @@ public enum DeviceType {
 		this.description = description;
 	}
 
-	public static DeviceType getDeviceTypeByDescription(String description) {
-		for (DeviceType deviceType : DeviceType.values()) {
-			if (deviceType.getDescription().equals(description)) {
-				return deviceType;
-			}
-		}
-		throw new DownloadException(ErrorCode.ERR_APP_UPLOAD_FAIL_DEVICE_TYPE_NOT_FOUND);
-	}
 }
