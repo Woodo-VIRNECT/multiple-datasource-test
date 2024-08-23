@@ -19,6 +19,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.zaxxer.hikari.HikariDataSource;
 
+import lombok.Generated;
+
+// @Generated 를 추가하면 jacoco 에서 무시하도록 설정할 수 있습니다.
+@Generated
 @Configuration
 @ConditionalOnProperty(name = "spring.datasource.db-type", havingValue = ORACLE_PERSISTENCE_UNIT)
 public class OracleDataSourceConfig extends AbstractDataSourceConfig {
