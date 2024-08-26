@@ -36,7 +36,7 @@ jobs:
         run: |
           ./gradlew test jacocoTestReport
 
-      # act 환경에서는 sonarqube를 실행할 수 없기 때문에, NO-ACT 환경에서만 실행합니다.
+      # act 환경으로 테스트 할 경우에는 주석처리 필요 (act 환경에서는 sonar가 동작하지않음)
       - name : Run Sonar From NO-ACT Environment
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
