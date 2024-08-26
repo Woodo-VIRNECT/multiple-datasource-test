@@ -35,4 +35,10 @@ jobs:
       - name : Run tests and Jacoco
         run: |
           ./gradlew test jacocoTestReport
-      - run: ls -al build/reports/jacoco/test
+
+      # act 환경에서는 sonarqube를 실행할 수 없기 때문에, NO-ACT 환경에서만 실행합니다.
+      - name : Run Sonar From NO-ACT Environment
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./gradlew sonar
