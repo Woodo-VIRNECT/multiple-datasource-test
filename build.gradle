@@ -49,10 +49,10 @@ dependencies {
 test {
     useJUnitPlatform {
         filter {
-            excludeTags 'integration'
+            excludeTags ['integration']
         }
     }
-    finalizedBy 'jacocoTestReport' // 추가
+    finalizedBy 'jacocoTestReport'
 }
 
 jacoco{
