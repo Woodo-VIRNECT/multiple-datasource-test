@@ -106,6 +106,7 @@ jacocoTestCoverageVerification {
             element = 'CLASS'
             enabled = true
 
+
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
