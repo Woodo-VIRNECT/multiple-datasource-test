@@ -47,12 +47,11 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
-//    useJUnitPlatform {
-//        filter {
-//            excludeTags 'integration'
-//        }
-//    }
+    useJUnitPlatform {
+        filter {
+            excludeTags 'integration'
+        }
+    }
     finalizedBy 'jacocoTestReport' // 추가
 }
 
