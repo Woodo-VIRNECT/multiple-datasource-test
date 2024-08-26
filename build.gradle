@@ -47,12 +47,13 @@ dependencies {
 }
 
 test {
-//    useJUnitPlatform()
-    useJUnitPlatform {
-        filter {
-            excludeTags 'integration'
-        }
-    }
+    useJUnitPlatform()
+//    useJUnitPlatform {
+//        filter {
+//            excludeTags 'integration'
+//        }
+//    }
+    finalizedBy 'jacocoTestReport' // 추가
 }
 
 jacoco{
@@ -60,19 +61,67 @@ jacoco{
 }
 
 jacocoTestReport {
+    dependsOn test
     reports {
-        html.required = false
+        html.required = true
         xml.required = true
+        csv.required = true
+
+//        원하는 경로에 저장하고 싶을 경우 아래와 같이 설정
+//        html.destination file("src/jacoco/jacoco.html")
+//        xml.destination file("src/jacoco/jacoco.xml")
+//        csv.destination file("src/jacoco/jacoco.csv")
     }
+
+    def Qdomains = []
+    for (qPattern in '**/QA'..'**/QZ') {
+        Qdomains.add(qPattern + '*')
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(
+                files(classDirectories.files.collect {
+                    fileTree(dir: it, excludes: [
+                            "**/*Application*",
+                            "**/*Config*",
+                            "**/*Dto*",
+                            "**/*Request*",
+                            "**/*Response*",
+                            "**/*Interceptor*",
+                            "**/*Exception*"
+                    ] + Qdomains)
+                })
+        )
+    }
+    finalizedBy 'jacocoTestCoverageVerification'
 }
 
 jacocoTestCoverageVerification {
+    def Qdomains = []
+    for (qPattern in '*.QA'..'*.QZ') {
+        Qdomains.add(qPattern + '*')
+    }
+
     violationRules {
         rule {
+            element = 'CLASS'
+            enabled = true
+
             limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
                 minimum = 0.0
             }
-            excludes = []
+
+            excludes = [
+                    "**.*Application*",
+                    "**.*Config*",
+                    "**.*Dto*",
+                    "**.*Request*",
+                    "**.*Response*",
+                    "**.*Interceptor*",
+                    "**.*Exception*"
+            ] + Qdomains
         }
     }
 }
