@@ -59,6 +59,7 @@ test {
 
 jacoco{
     toolVersion = "0.8.12"
+    setReportsDirectory(file("${rootDir}/.qodana/code-coverage"))
 }
 
 jacocoTestReport {
