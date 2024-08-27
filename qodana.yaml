@@ -1,0 +1,12 @@
+version: "1.0"
+profile:
+  name: qodana.starter
+include:
+  - name: CommentedOutCode
+  - name: Deprecation
+  - name: JavadocDeclaration
+  - name: LombokGetterMayBeUsed
+  - name: NonFinalFieldInEnum
+  - name: UnnecessaryToStringCall
+  - name: UnnecessarySemicolon
+  - name: UNUSED_IMPORT
