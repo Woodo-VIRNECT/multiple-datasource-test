@@ -1,0 +1,14 @@
+version: "1.0"
+profile:
+  name: qodana.starter
+include:
+  - name: CommentedOutCode
+  - name: Deprecation
+  - name: JavadocDeclaration
+  - name: LombokGetterMayBeUsed
+  - name: NonFinalFieldInEnum
+  - name: UnnecessarySemicolon
+  - name: UnnecessaryToStringCall
+  - name: UNUSED_IMPORT
+  - name: FieldMayBeFinal
+linter: jetbrains/qodana-jvm:2024.1
