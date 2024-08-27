@@ -59,6 +59,5 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-#          args: --save-report
-#          results-dir: report
           pr-mode: false
+          cache-dir: .qodana/cache
