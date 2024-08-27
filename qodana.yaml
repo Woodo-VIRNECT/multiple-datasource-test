@@ -11,4 +11,5 @@ include:
   - name: UnnecessaryToStringCall
   - name: UNUSED_IMPORT
   - name: FieldMayBeFinal
+  - name: DefaultAnnotationParam
 linter: jetbrains/qodana-jvm:2024.1
