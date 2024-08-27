@@ -73,6 +73,6 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-          args: --report-dir=./qodana-reports
+          args: --config=./qodana.yaml
 
 
