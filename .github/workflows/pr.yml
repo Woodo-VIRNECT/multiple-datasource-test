@@ -63,7 +63,7 @@ jobs:
 #          ./gradlew sonar
 
       - name: Archive coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gradle-coverage-data-jacoco
           path: .qodana/code-coverage
@@ -73,6 +73,11 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-          args: --config=./qodana.yaml
+          args: --save-report
+          results-dir: report
+          pr-mode: false
+#        with:
+#          args: --config=qodana.yaml
+
 
 
