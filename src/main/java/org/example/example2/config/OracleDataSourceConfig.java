@@ -5,8 +5,6 @@ import static org.example.example2.config.AbstractDataSourceConfig.*;
 
 import java.util.Objects;
 
-import javax.sql.DataSource;
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;

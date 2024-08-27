@@ -1,5 +1,7 @@
 package org.example.example2.entity.contents;
 
+import lombok.Getter;
+
 /**
  * Project        : PF-ContentManagement
  * DATE           : 2020-04-10
@@ -10,6 +12,7 @@ package org.example.example2.entity.contents;
  * DATE            AUTHOR             NOTE
  * -----------------------------------------------------------
  */
+@Getter
 public enum Types {
 	AUGMENTED_REALITY("증강현실"),
 	ASSISTED_REALITY("보조현실"),
@@ -23,7 +26,4 @@ public enum Types {
 		this.message = message;
 	}
 
-	public String getMessage() {
-		return message;
-	}
 }
