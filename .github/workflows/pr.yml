@@ -43,24 +43,10 @@ jobs:
         run: chmod +x gradlew
         working-directory: ./
 
-#      - name: Cache Gradle Wrapper
-#        uses: actions/cache@v4
-#        with:
-#          path: ~/.gradle/wrapper/
-#          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
-#          restore-keys: |
-#            ${{ runner.os }}-gradle-wrapper-
-
       - name : Run tests and Jacoco
         run: |
           ./gradlew test jacocoTestReport
         working-directory: ./
-
-#      - name : Run Sonar From NO-ACT Environment
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        run: |
-#          ./gradlew sonar
 
       - name: Archive coverage data
         uses: actions/upload-artifact@v4
@@ -76,8 +62,3 @@ jobs:
           args: --save-report
           results-dir: report
           pr-mode: false
-#        with:
-#          args: --config=qodana.yaml
-
-
-

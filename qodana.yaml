@@ -10,4 +10,5 @@ include:
   - name: UnnecessarySemicolon
   - name: UnnecessaryToStringCall
   - name: UNUSED_IMPORT
+  - name: FieldMayBeFinal
 linter: jetbrains/qodana-jvm:2024.1
