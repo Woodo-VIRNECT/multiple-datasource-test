@@ -38,3 +38,6 @@ out/
 
 ### jacoco folder ###
 jacoco/
+
+### Code coverage report ###
+.qodana
