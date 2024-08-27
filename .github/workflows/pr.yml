@@ -30,8 +30,12 @@ jobs:
           distribution: 'corretto'
           cache: gradle
 
-      - name: Validate Gradle Wrapper
-        run: chmod +x ./gradlew --version
+      - name: Set executable permission for Gradle Wrapper
+        run: chmod +x ./gradlew
+        working-directory: ./
+
+      - name: Validate Gradle Wrapper version
+        run: ./gradlew --version
         working-directory: ./
 
       - name: Create code coverage folder if not exists
@@ -39,7 +43,7 @@ jobs:
           mkdir -p .qodana/code-coverage
         working-directory: ./
 
-      - name: permission
+      - name: Set executable permission for Gradle Wrapper
         run: chmod +x gradlew
         working-directory: ./
 
@@ -61,3 +65,4 @@ jobs:
         with:
           pr-mode: false
           cache-dir: .qodana/cache
+          results-dir: .qodana/results
