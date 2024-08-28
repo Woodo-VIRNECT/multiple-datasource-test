@@ -12,4 +12,5 @@ include:
   - name: UNUSED_IMPORT
   - name: FieldMayBeFinal
   - name: DefaultAnnotationParam
+  - name: Lombok
 linter: jetbrains/qodana-jvm:2024.1

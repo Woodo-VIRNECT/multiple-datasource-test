@@ -68,11 +68,6 @@ jacocoTestReport {
         html.required = true
         xml.required = true
         csv.required = true
-
-//        원하는 경로에 저장하고 싶을 경우 아래와 같이 설정
-//        html.destination file("src/jacoco/jacoco.html")
-//        xml.destination file("src/jacoco/jacoco.xml")
-//        csv.destination file("src/jacoco/jacoco.csv")
     }
 
     def Qdomains = []
@@ -108,14 +103,11 @@ jacocoTestCoverageVerification {
         rule {
             element = 'CLASS'
             enabled = true
-
-
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
                 minimum = 0.0
             }
-
             excludes = [
                     "**.*Application*",
                     "**.*Config*",
