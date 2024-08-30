@@ -6,6 +6,11 @@ on:
       - master
       - main
 
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+
 jobs:
   test-and-analyze:
     name: Test and Analyze
