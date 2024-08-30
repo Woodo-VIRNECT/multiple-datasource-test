@@ -13,4 +13,10 @@ include:
   - name: FieldMayBeFinal
   - name: DefaultAnnotationParam
   - name: Lombok
+  - name: RedundantModifiersUtilityClassLombok
+  - name: LombokSetterMayBeUsed
+  - name: JpaEntityListenerInspection
+  - name: JpaEntityListenerWarningsInspection
+  - name: JpaMissingIdInspection
+  - name: JpaObjectClassSignatureInspection
 linter: jetbrains/qodana-jvm:2024.1

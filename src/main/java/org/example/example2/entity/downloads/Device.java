@@ -47,7 +47,7 @@ public class Device extends TimeEntity {
 	@Column(name = "model_description", nullable = false)
 	private String modelDescription; //<span style="color: #1468e2">스마트폰/타블릿</span>
 
-	@Column(name = "model_description_eng", nullable = true)
+	@Column(name = "model_description_eng")
 	private String modelDescriptionEng;
 
 	@ManyToOne(fetch = FetchType.LAZY)
