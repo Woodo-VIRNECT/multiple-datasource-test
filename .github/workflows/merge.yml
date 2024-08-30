@@ -52,14 +52,14 @@ jobs:
           cache-dir: .qodana/cache
           results-dir: .qodana/results
 
-      - name : Upload Qodana results
-        uses: actions/upload-artifact@v4
+      - name: Upload Qodana SARIF file
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: .qodana/results/qodana.sarif.json
 
   deploy:
     name: Deploy
-    needs: [ test-and-analyze ]
+    needs: [test-and-analyze]
     runs-on: ubuntu-22.04
     steps:
       - run: |
