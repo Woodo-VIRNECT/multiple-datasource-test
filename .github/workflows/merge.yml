@@ -12,7 +12,6 @@ permissions:
   checks: write
   security-events: write
 
-
 jobs:
   test-and-analyze:
     name: Test and Analyze
@@ -25,7 +24,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name : Set up JDK 17
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
@@ -40,16 +39,20 @@ jobs:
         run: ./gradlew --version
         working-directory: ./
 
+      - name: Clear old caches (only on specific branches)
+        if: startsWith(github.ref_name, 'main') || startsWith(github.ref_name, 'master')
+        run: |
+          sudo rm -rf ~/.gradle/caches
+          sudo rm -rf ~/.gradle/wrapper
+          sudo rm -rf .qodana/cache
+
       - name: Restore Gradle Cache
         uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradlew') }}-${{ github.ref }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
-          cache-hit: expire-on=$(date -d "7 days" '+%Y%m%d%H%M%S')
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradlew') }}-${{ github.run_id }}
 
       - name: Run tests and Jacoco
         run: ./gradlew test jacocoTestReport
@@ -65,10 +68,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .qodana/cache
-          key: qodana-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradlew') }}-${{ github.ref }}
-          restore-keys: |
-            qodana-${{ runner.os }}-
-          cache-hit: expire-on=$(date -d "7 days" '+%Y%m%d%H%M%S')
+          key: qodana-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradlew') }}-${{ github.run_id }}
 
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2024.1
