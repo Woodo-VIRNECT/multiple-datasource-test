@@ -63,7 +63,7 @@ jobs:
           path: .qodana/code-coverage
     
   qodana:
-    need: build
+    needs: build
     runs-on: ubuntu-22.04
     steps:
       - name: CHECKOUT
