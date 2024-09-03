@@ -39,21 +39,6 @@ jobs:
         run: ./gradlew --version
         working-directory: ./
 
-#      - name: Clear old caches (only on specific branches)
-#        if: startsWith(github.ref_name, 'main') || startsWith(github.ref_name, 'master')
-#        run: |
-#          sudo rm -rf ~/.gradle/caches
-#          sudo rm -rf ~/.gradle/wrapper
-#          sudo rm -rf .qodana/cache
-#
-#      - name: Restore Gradle Cache
-#        uses: actions/cache@v4
-#        with:
-#          path: |
-#            ~/.gradle/caches
-#            ~/.gradle/wrapper
-#          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradlew') }}-${{ github.run_id }}
-
       - name: Run tests and Jacoco
         run: ./gradlew test jacocoTestReport
         working-directory: ./
@@ -63,12 +48,6 @@ jobs:
 #        with:
 #          name: gradle-coverage-data-jacoco
 #          path: .qodana/code-coverage
-
-#      - name: Restore Qodana Cache
-#        uses: actions/cache@v4
-#        with:
-#          path: .qodana/cache
-#          key: qodana-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradlew') }}-${{ github.run_id }}
 
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2024.1
