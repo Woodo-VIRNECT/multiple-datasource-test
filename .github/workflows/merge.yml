@@ -40,6 +40,17 @@ jobs:
         run: ./gradlew --version
         working-directory: ./
 
+      - name: Restore Gradle Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradlew') }}-${{ github.ref }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+          cache-hit: expire-on=$(date -d "7 days" '+%Y%m%d%H%M%S')
+
       - name: Run tests and Jacoco
         run: ./gradlew test jacocoTestReport
         working-directory: ./
@@ -50,7 +61,16 @@ jobs:
           name: gradle-coverage-data-jacoco
           path: .qodana/code-coverage
 
-      - name: 'Qodana Scan'
+      - name: Restore Qodana Cache
+        uses: actions/cache@v4
+        with:
+          path: .qodana/cache
+          key: qodana-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradlew') }}-${{ github.ref }}
+          restore-keys: |
+            qodana-${{ runner.os }}-
+          cache-hit: expire-on=$(date -d "7 days" '+%Y%m%d%H%M%S')
+
+      - name: Qodana Scan
         uses: JetBrains/qodana-action@v2024.1
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
