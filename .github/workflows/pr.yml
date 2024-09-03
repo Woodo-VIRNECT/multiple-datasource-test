@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-and-analyze:
+  build:
     name: Test and Analyze
     runs-on: ubuntu-22.04
     permissions:
@@ -17,16 +17,20 @@ jobs:
       checks: write
     env:
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs='-Xmx2g -XX:MaxMetaspaceSize=512m' -Dorg.gradle.parallel=true"
+    strategy:
+      matrix:
+        java: [ '17' ]
+    
     steps:
       - name: CHECKOUT
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name : Set up JDK 17
+      - name : Set up JDK ${{matrix.java}}
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: ${{matrix.java}}
           distribution: 'corretto'
           cache: gradle
 
@@ -57,7 +61,15 @@ jobs:
         with:
           name: gradle-coverage-data-jacoco
           path: .qodana/code-coverage
-          
+    
+  qodana:
+    need: build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: CHECKOUT
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2024.1
         env:
