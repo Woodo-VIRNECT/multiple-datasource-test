@@ -19,5 +19,6 @@ include:
   - name: JpaEntityListenerWarningsInspection
   - name: JpaMissingIdInspection
   - name: JpaObjectClassSignatureInspection
+  - name: DuplicatedCode
 fixesStrategy: cleanup
 linter: jetbrains/qodana-jvm:2024.1
