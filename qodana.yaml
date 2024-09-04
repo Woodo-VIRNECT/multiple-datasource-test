@@ -1,6 +1,7 @@
 version: "1.0"
 profile:
   name: qodana.starter
+projectJDK: 1.8
 include:
   - name: CommentedOutCode
   - name: Deprecation
